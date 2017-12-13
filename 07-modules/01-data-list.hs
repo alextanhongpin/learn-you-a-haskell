@@ -104,6 +104,58 @@ main = do
   -- predicate
   print $ find (>4) [1..10]
 
+  -- elemIndex is kind of like elem, only it doesn't return a boolean value
+  print $ 4 `elemIndex` [1,2,3,4,5]
+
+  -- elemIndices
+  print $ 4 `elemIndices` [1,2,3,4,5,1,2,3,4,5]
+
+  -- findIndex returns the index of the first element that satisfies the predicate
+  print $ findIndex (==4) [1..10]
+  
+  -- findIndices returns the indices of the elements that satisfies the predicate
+  print $ findIndices (>4) [1..10]
+
+  -- zipWith and zip4
+  print $ zipWith3 (\x y z -> x + y + z) [1..3] [4..6] [7..9]
+  print $ zip4 [1..3] [4..6] [7..9] [10..12]
+
+  -- lines takes a string and returns every line of the string in a separate list
+  print $ lines "first line\nsecond line\nthird line"
+
+  -- unlines
+  print $ unlines ["first line", "second line", "third line"]
+
+  -- words splitting a line of text into words
+  print $ words "hey there where are the words in the sentence"
+
+  -- unwords joins a list of words into a text
+  print $ unwords ["hey", "there", "mate"]
+
+  -- nub takes a list and remove duplicate elements
+  print $ nub [1,2,3,4,1,2,3,4,1,2,3,3,3]
+  print $ nub "Lots of words and characters!"
+
+  -- delete takes an element and a list and deletes the firt occurence of the element in the list
+  print $ delete 'h' "hey there gang"
+  print $ delete 1 [2,1,2,3,4]
+
+  -- \\ is the list difference function
+  print $ [1..10] \\ [2,5,9]
+  print $ "I'm a big baby" \\ "big"
+
+  -- unions returns the union of two lists
+  print $ [1..10] `union` [5..10]
+  print $ "hey man" `union` "what's up man"
+
+  -- intersect returns elements that are found in both lists
+  print $ [1..7] `intersect` [5..10]
+
+  -- insert takes an element and a list of elements that can be sorted and insert it into the
+  -- last position where it's still less than or equal to the next element
+  print $ insert 4 [3,4,1,2,3,4]
+  print $ insert 4 [1..10]
+
 
 -- Returns the number of unique items in a list
 numUniques :: (Eq a) => [a] -> Int
