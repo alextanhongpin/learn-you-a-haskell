@@ -3,11 +3,13 @@ import qualified Data.Map as Map
 main :: IO()
 main = do
   let phoneBook = [("betty", "555-2938")
+                  ,("betty", "111-231")
                   ,("bonnie", "452-2928")
                   ,("patsy", "493-2928")
                   ,("lucille", "20502928")
                   ,("wendy", "939-8283")
                   ,("penny", "853-2492")
+                  ,("penny", "112-3123")
                   ]
 
   print $ findKey "penny" phoneBook
@@ -46,6 +48,26 @@ main = do
   print $ Map.member 5 $ Map.fromList [(4,10), (1,2)]
 
   -- map and filter works like the list equivalent
+  print $ Map.map (*3) $ Map.fromList [(1,1), (3,10), (5, 30)]
+  print $ Map.filter (>3) $ Map.fromList [(1,10), (2, 20), (3, 1)]
+
+  -- toList is the inverse of fromList
+  print $ Map.toList . Map.insert 9 2 $ Map.singleton 10 20
+
+  -- keys return list of keys. Similar to map fst . Map.toList
+  -- elems returns list of values. Similar to map snd . Map.toList
+  print $ Map.keys $ Map.fromList [(1,2), (2,3), (4,10)]
+  print $ Map.elems $ Map.fromList [(1,2), (2,3), (4,10)]
+
+  -- fromListWith doesn't return duplicate
+  print $ Map.lookup "penny" $ phoneBookToMap phoneBook
+
+  -- insertWith is to insert what fromListWith is to fromList
+  print $ Map.insertWith (+) 3 100 $ Map.fromList [(3,4), (5,103), (6,339)]
 
 findKey :: (Eq k) => k -> [(k,v)] -> Maybe v
 findKey key = foldr (\(k,v) acc -> if key == k then Just v else acc) Nothing
+
+
+phoneBookToMap :: (Ord k) => [(k, String)] -> Map.Map k String
+phoneBookToMap xs = Map.fromListWith (\number1 number2 -> number1 ++ ", " ++ number2) xs
